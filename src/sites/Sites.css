@@ -1,0 +1,32 @@
+.platform {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 0.5fr 2.1fr 0.4fr 1fr;
+  grid-template-rows: 0.2fr 1.6fr 1.2fr;
+  grid-auto-flow: row;
+  background-color: greenyellow;
+  font-size: 30px;
+}
+
+.board {background-color: green}
+
+.notebook {background-color: white}
+
+.info {background-color: gray}
+
+.note_tools {background-color: wheat}
+
+.board_tools {background-color: yellow}
+
+.door {background-color: cadetblue}
+
+.breadcrumbs {background-color: gold}
+
+.board { grid-area: 2 / 2 / 3 / 3; }
+.notebook { grid-area: 3 / 2 / 4 / 3; }
+.note_tools { grid-area: 3 / 3 / 4 / 4; }
+.door { grid-area: 2 / 1 / 3 / 2; }
+.breadcrumbs { grid-area: 1 / 1 / 2 / 5; }
+.info { grid-area: 2 / 4 / 4 / 5; }
+.board_tools { grid-area: 2 / 3 / 3 / 4; }
