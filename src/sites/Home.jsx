@@ -1,23 +1,24 @@
 import { useState } from 'react'
 import './Sites.css'
+import CategoryList from "../sections/CategoryList.jsx";
+import FileButtons from "../sections/FileButtons.jsx";
 
 function Home() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <h1>Home</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        <div className="home">
+            <div className="category_signs">
+                <CategoryList></CategoryList>
+            </div>
+            <div className="school_empty">
+                .
+            </div>
+            <div className="file_options">
+                <FileButtons></FileButtons>
+            </div>
+        </div>
     </>
   )
 }

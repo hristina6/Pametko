@@ -1,3 +1,5 @@
+/* PLATFORM */
+
 .platform {
   width: 100vw;
   height: 100vh;
@@ -30,3 +32,34 @@
 .breadcrumbs { grid-area: 1 / 1 / 2 / 5; }
 .info { grid-area: 2 / 4 / 4 / 5; }
 .board_tools { grid-area: 2 / 3 / 3 / 4; }
+
+/* HOME */
+.home {
+  width: 100vw;
+  height: 100vh;
+  /*background: url("../assets/school_image_background_demo.avif") no-repeat center;*/
+  background: url("../assets/school_image_background_demo.avif") no-repeat 0 80%;
+  background-size: cover;
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr 1fr;
+  grid-template-rows: 1fr;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "category_signs school_empty file_options";
+}
+
+.category_signs, .school_empty, .file_options {
+  border: 1px dotted white;
+}
+
+.category_signs { grid-area: category_signs; }
+
+.school_empty { grid-area: school_empty; }
+
+.file_options { grid-area: file_options; }
+
+/*.category_signs { background-color: saddlebrown}*/
+
+/*.school_empty { background-color: darkred}*/
+
+/*.file_options { background-color: sandybrown}*/

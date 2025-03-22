@@ -43,3 +43,23 @@
 .notes_pencil { grid-area: notes_pencil; border: 2px solid black;}
 
 .notes_eraser { grid-area: notes_eraser; border: 2px solid pink;}
+
+/* CATEGORIES */
+.categories {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: left;
+    margin: auto;
+    font-weight: bold;
+}
+
+.categories li {
+    padding: 10% 0;
+}
+
+/* FILES */
+.file_buttons {
+    display: flex;
+    justify-content: end;
+}
