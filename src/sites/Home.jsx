@@ -4,7 +4,6 @@ import CategoryList from "../sections/CategoryList.jsx";
 import FileButtons from "../sections/FileButtons.jsx";
 
 function Home() {
-  const [count, setCount] = useState(0)
 
   return (
     <>

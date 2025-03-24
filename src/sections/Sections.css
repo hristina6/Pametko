@@ -52,14 +52,41 @@
     justify-content: left;
     margin: auto;
     font-weight: bold;
+    font-size: 2rem;
+}
+
+.categories ul {
+    list-style-type: none;
 }
 
 .categories li {
-    padding: 10% 0;
+    padding: 5% 0;
+}
+
+.categories li button{
+    background: url("../assets/arrow_sign_demo.png") no-repeat center;
+    background-size: cover;
 }
 
 /* FILES */
+
+.right_section {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
 .file_buttons {
     display: flex;
     justify-content: end;
+}
+
+.kid_placeholder {
+    width: 100%;
+    margin-top: auto;
+}
+
+.kid_placeholder img {
+    object-fit: contain;
+    width: 100%;
 }

@@ -63,3 +63,13 @@
 /*.school_empty { background-color: darkred}*/
 
 /*.file_options { background-color: sandybrown}*/
+
+
+/* BAG */
+.bag {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
