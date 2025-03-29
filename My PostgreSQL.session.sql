@@ -1,0 +1,10 @@
+CREATE TABLE math_problems (
+    id SERIAL PRIMARY KEY,
+    problem TEXT NOT NULL,
+    answer_img BYTEA,
+    answer_int INTEGER,
+    theme VARCHAR(50) NOT NULL,
+    difficulty VARCHAR(10) NOT NULL,
+    notes_img BYTEA,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

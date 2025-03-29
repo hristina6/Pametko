@@ -12,6 +12,10 @@ function Home() {
                 <CategoryList></CategoryList>
             </div>
             <div className="school_empty">
+<<<<<<< HEAD
+=======
+                .
+>>>>>>> 81776d2 (Adding import, local data base and server)
             </div>
             <div className="file_options">
                 <FileButtons></FileButtons>

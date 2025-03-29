@@ -26,9 +26,15 @@
     "board_sponge";
 }
 
+<<<<<<< HEAD
 .board_sponge { grid-area: board_sponge;}
 
 .board_chalk { grid-area: board_chalk;}
+=======
+.board_sponge { grid-area: board_sponge; border: 2px solid gold;}
+
+.board_chalk { grid-area: board_chalk; border: 2px solid white;}
+>>>>>>> 81776d2 (Adding import, local data base and server)
 
 .notes_tools_section {
     height: 100%;
@@ -40,9 +46,15 @@
     "notes_eraser";
 }
 
+<<<<<<< HEAD
 .notes_pencil { grid-area: notes_pencil;}
 
 .notes_eraser { grid-area: notes_eraser;}
+=======
+.notes_pencil { grid-area: notes_pencil; border: 2px solid black;}
+
+.notes_eraser { grid-area: notes_eraser; border: 2px solid pink;}
+>>>>>>> 81776d2 (Adding import, local data base and server)
 
 /* CATEGORIES */
 .categories {
@@ -64,7 +76,11 @@
 }
 
 .categories li button{
+<<<<<<< HEAD
     background: url("../assets/Sign_Green.svg") no-repeat center;
+=======
+    background: url("../assets/arrow_sign_demo.png") no-repeat center;
+>>>>>>> 81776d2 (Adding import, local data base and server)
     background-size: cover;
 }
 

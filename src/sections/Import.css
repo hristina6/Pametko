@@ -1,0 +1,43 @@
+.import-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .action-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 10px 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .action-button:hover {
+    background-color: #45a049;
+  }
+  
+  .save-button {
+    background-color: #21bbf3;
+  }
+  
+  .save-button:hover {
+    background-color: #0b7dda;
+  }
+  
+  .file-info {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+  }
+  
+  .back-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: #333;
+    text-decoration: none;
+  }
