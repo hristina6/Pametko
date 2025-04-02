@@ -1,12 +1,17 @@
 import pg from 'pg';
+import fs from 'fs';
+
 const { Pool } = pg;
 
 const pool = new Pool({
-  user: 'postgres',  
-  host: 'localhost',
-  database: 'uiktp', 
-  password: '2002_maj',
-  port: 5432,  
+  host: "ikt-db-server.postgres.database.azure.com",
+  user: "admin_ikt",
+  password: "Iktproject1-", 
+  database: "postgres", 
+  port: 5432,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 export default pool;

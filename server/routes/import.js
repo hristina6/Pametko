@@ -4,22 +4,45 @@ import pool from '../db.js';
 const router = express.Router();
 
 router.post('/import', async (req, res) => {
-  const problems = req.body;  
+  console.log('Data:', JSON.stringify(req.body, null, 2));
 
   try {
-    for (const problem of problems) {
-      await pool.query(
-        `INSERT INTO math_problems 
+    const client = await pool.connect();
+    console.log('Connected to Azure PostgreSQL...');
+    
+    const insertedIds = [];
+    for (const problem of req.body) {
+      const result = await client.query(
+        `INSERT INTO problems 
         (problem, answer_int, theme, difficulty) 
-        VALUES ($1, $2, $3, $4)`,
+        VALUES ($1, $2, $3, $4)
+        RETURNING id`,
         [problem.problem, problem.answer_int, problem.theme, problem.difficulty]
       );
+      insertedIds.push(result.rows[0].id);
+      console.log('Saved:', result.rows[0].id);
     }
-    res.status(200).json({ message: 'Успешен импорт!' });
+    
+    client.release();
+    res.status(200).json({ 
+      success: true,
+      message: `Successfully ${insertedIds.length} rows`,
+      ids: insertedIds
+    });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Грешка при импорт' });
+    console.error('Error:', {
+      message: err.message,
+      stack: err.stack,
+      query: err.query
+    });
+    res.status(500).json({
+      success: false,
+      error: 'for writing',
+      details: err.message
+    });
   }
 });
+
+
 
 export default router;

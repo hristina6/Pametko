@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import * as XLSX from 'xlsx'; 
+import * as XLSX from 'xlsx';
 import './Import.css';
 
 function Import() {
@@ -35,26 +35,36 @@ function Import() {
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
       const jsonData = XLSX.utils.sheet_to_json(worksheet);
       
-      setFile(jsonData); 
+      setFile(jsonData);
     };
     reader.readAsArrayBuffer(uploadedFile);
   };
 
 
   const saveToDatabase = async () => {
+    if (!file || file.length === 0) {
+      alert('Нема податоци за зачувување!');
+      return;
+    }
+  
     try {
       const response = await fetch('http://localhost:5000/api/import', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(file)
       });
-
-      if (response.ok) {
-        alert('Податоците се успешно зачувани!');
-        setFile(null);
+  
+      const result = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(result.error || 'Неуспешно зачувување');
       }
+  
+      alert(`${result.message}\nЗачувани IDs: ${result.ids.join(', ')}`);
+      setFile(null);
     } catch (error) {
-      console.error('Грешка', error);
+      console.error('Детали за грешката:', error);
+      alert(`Грешка: ${error.message}\n${error.details || ''}`);
     }
   };
 
@@ -64,8 +74,9 @@ function Import() {
       
       <div className="template-section">
         <button onClick={downloadTemplate} className="action-button">
-          Преземи темплејт (.xlsx)
+          Превземи темплејт (.xlsx)
         </button>
+        <p className="hint-text">Пополнете го темплејтот и прикачете го подолу</p>
       </div>
 
       <div className="upload-section">
@@ -80,20 +91,20 @@ function Import() {
           onClick={() => fileInputRef.current.click()} 
           className="action-button"
         >
-          Прикачи го пополнетиот темплејт
+          Import на фајл
         </button>
         
         {file && (
           <div className="file-info">
-            <p>✅ Фајлот е подготвен за внес ({file.length} записи)</p>
+            <p>✅ Подготвени {file.length} записи</p>
             <button onClick={saveToDatabase} className="save-button">
-              Зачувај
+              Зачувај во Azure база
             </button>
           </div>
         )}
       </div>
 
-      <Link to="/" className="back-link">Назад кон почетната страна</Link>
+      <Link to="/" className="back-link">Назад кон почетна</Link>
     </div>
   );
 }
