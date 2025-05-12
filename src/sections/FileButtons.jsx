@@ -8,7 +8,7 @@ function FileButtons() {
     <>
         <div className="right_section">
             <div className="file_buttons">
-              <button>Import</button>
+              <Link to="/import"><button>Import</button></Link>
               <button>Export</button>
                 <Link to="/bag"><button>Bag</button></Link>
             </div>

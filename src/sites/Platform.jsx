@@ -1,11 +1,11 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import './Sites.css'
 import Board from "../sections/Board.jsx";
 import BoardTools from "../sections/BoardTools.jsx";
 import NoteTools from "../sections/NoteTools.jsx";
 
 function Platform() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
 
   return (
     <>
