@@ -2,11 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import './Sections.css';
 
-<<<<<<< HEAD
 const categories = ['СОБИРАЊЕ', 'ОДЗЕМАЊЕ', 'МНОЖЕЊЕ', 'ДЕЛЕЊЕ'];
-=======
-const categories = ['SUM', 'SUBTRACT', 'MULTIPLY', 'DIVIDE'];
->>>>>>> 81776d2 (Adding import, local data base and server)
 
 function CategoryList() {
     const [rotationAngles, setRotationAngles] = useState([]);

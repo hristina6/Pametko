@@ -7,26 +7,6 @@
   grid-template-columns: 0.5fr 2.1fr 0.4fr 1fr;
   grid-template-rows: 0.2fr 1.6fr 1.2fr;
   grid-auto-flow: row;
-<<<<<<< HEAD
-  font-size: 30px;
-
-  background: url("../assets/SchoolRoom.svg") no-repeat 0;
-}
-
-.board {
-  background: url("../assets/Blackboard.svg") no-repeat center 40%/70%;
-}
-
-.notebook {background: url("../assets/Notebook.svg") no-repeat 0 36%/100%}
-
-.info {background-color: gray}
-
-.note_tools {background-color: transparent}
-
-.board_tools {background-color: transparent}
-
-.door {background-color: transparent}
-=======
   background-color: greenyellow;
   font-size: 30px;
 }
@@ -42,7 +22,6 @@
 .board_tools {background-color: yellow}
 
 .door {background-color: cadetblue}
->>>>>>> 81776d2 (Adding import, local data base and server)
 
 .breadcrumbs {background-color: gold}
 
@@ -58,12 +37,8 @@
 .home {
   width: 100vw;
   height: 100vh;
-<<<<<<< HEAD
-  background: url("../assets/School.svg") no-repeat 0 45%;
-=======
   /*background: url("../assets/school_image_background_demo.avif") no-repeat center;*/
   background: url("../assets/school_image_background_demo.avif") no-repeat 0 80%;
->>>>>>> 81776d2 (Adding import, local data base and server)
   background-size: cover;
   display: grid;
   grid-template-columns: 0.7fr 1.3fr 1fr;

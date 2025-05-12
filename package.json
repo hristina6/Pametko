@@ -7,14 +7,6 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-<<<<<<< HEAD
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-router": "^7.4.0"
-=======
     "preview": "vite preview",
     "start-server": "node server/server.js"
   },
@@ -28,7 +20,6 @@
     "react-router": "^7.4.0",
     "react-router-dom": "^7.4.0",
     "xlsx": "^0.18.5"
->>>>>>> 81776d2 (Adding import, local data base and server)
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
@@ -40,14 +31,10 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
     "vite": "^6.2.0"
-<<<<<<< HEAD
-  }
-=======
   },
   "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
   "main": "eslint.config.js",
   "keywords": [],
   "author": "",
   "license": "ISC"
->>>>>>> 81776d2 (Adding import, local data base and server)
 }
