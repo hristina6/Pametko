@@ -12,7 +12,6 @@ function Home() {
                 <CategoryList></CategoryList>
             </div>
             <div className="school_empty">
-                .
             </div>
             <div className="file_options">
                 <FileButtons></FileButtons>

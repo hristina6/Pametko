@@ -10,15 +10,13 @@ function Platform() {
   return (
     <>
         <div className="platform">
-            <div className="breadcrumbs">.</div>
-            <div className="door">.</div>
+            <div className="breadcrumbs">Breadcrumbs</div>
+            <div className="door"><a href="/"><img alt="back_button" src="src/assets/BackButton.svg"/></a></div>
             <div className="board"><Board></Board></div>
             <div className="board_tools"><BoardTools></BoardTools></div>
-            <div className="info">.</div>
+            <div className="info"><img alt="Pametko" src="src/assets/Kid.svg"/></div>
             <div className="note_tools"><NoteTools></NoteTools></div>
-            <div className="notebook">.</div>
-            <div className="boy">.</div>
-
+            <div className="notebook"></div>
         </div>
     </>
   )

@@ -13,7 +13,7 @@ function FileButtons() {
                 <Link to="/bag"><button>Bag</button></Link>
             </div>
             <div className="kid_placeholder">
-                <img src="src/assets/kid_image_demo.png"/>
+                <img src="src/assets/Kid.svg"/>
             </div>
         </div>
     </>

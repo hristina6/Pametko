@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 5120 5120">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #808285;
+      }
+
+      .cls-2 {
+        fill: #939598;
+      }
+
+      .cls-3 {
+        opacity: .79;
+        stroke: #006838;
+      }
+
+      .cls-3, .cls-4 {
+        fill: none;
+        stroke-miterlimit: 10;
+        stroke-width: 100px;
+      }
+
+      .cls-4 {
+        stroke: #c49a6c;
+      }
+
+      .cls-5 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-6 {
+        fill: #bcbec0;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="695.43" y1="4385.05" x2="4424.87" y2="655.61" gradientUnits="userSpaceOnUse">
+      <stop offset=".16" stop-color="#007f49"/>
+      <stop offset=".89" stop-color="#007444"/>
+    </linearGradient>
+  </defs>
+  <rect class="cls-5" x="120.01" y="1185.03" width="4880.29" height="2670.59" rx="78.53" ry="78.53"/>
+  <rect class="cls-3" x="163.03" y="1206.58" width="4787.35" height="2520.36" rx="15.93" ry="15.93"/>
+  <rect class="cls-4" x="102.43" y="1165.16" width="4915.45" height="2710.33" rx="15.93" ry="15.93"/>
+  <rect class="cls-1" x="153.03" y="3707.05" width="4815.93" height="169.17"/>
+  <path class="cls-2" d="M152.34,3875.75H31.11v-98.37c40.41-23.29,80.82-46.58,121.23-69.86v168.24Z"/>
+  <path class="cls-2" d="M4967.46,3875.49h121.23v-98.37c-40.41-23.29-80.82-46.58-121.23-69.86v168.24Z"/>
+  <rect class="cls-6" x="30.32" y="3777.12" width="5059.37" height="177.72"/>
+</svg>

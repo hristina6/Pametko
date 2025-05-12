@@ -8,10 +8,10 @@ function BoardTools() {
     <>
       <div className="board_tools_section">
         <div className="board_chalk">
-            Chalk
+            <img src="src/assets/Chalk.svg"/>
         </div>
         <div className="board_sponge">
-            Sponge
+            <img src="src/assets/Sponge.svg"/>
         </div>
       </div>
     </>

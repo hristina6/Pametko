@@ -8,10 +8,10 @@ function NoteTools() {
     <>
       <div className="notes_tools_section">
         <div className="notes_pencil">
-            Pencil
+            <img src="src/assets/Pencil.svg"/>
         </div>
         <div className="notes_eraser">
-            Eraser
+            <img src="src/assets/Eraser.svg"/>
         </div>
       </div>
     </>
