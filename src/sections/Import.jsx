@@ -10,10 +10,10 @@ function Import() {
   const downloadTemplate = () => {
     const templateData = [
       { 
-        problem: "Пример: 2+2", 
-        answer_int: 4, 
-        theme: "собирање", 
-        difficulty: "лесно" 
+        problem: "Пример: 2 - 2", 
+        answer_int: 0,
+        theme: "Пример: одземање", 
+        difficulty: "Пример: 1(лесно) - Стави бројка"
       }
     ];
     
