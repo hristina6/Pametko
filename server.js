@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import importRouter from './routes/import.js';
-import pool from './db.js';
+import importRouter from './server/routes/import.js';
+import pool from './server/db.js';
 
 const app = express();
 
