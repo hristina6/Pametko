@@ -28,6 +28,18 @@ try {
 }
 });
 
+router.get('/bag', async (req, res) => {
+  const client = await pool.connect();
+  try {
+    const result = await client.query('SELECT * FROM problems');
+    res.status(200).json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  } finally {
+    client.release();
+  }
+});
 
 
 export default router;
