@@ -1,17 +1,19 @@
 import { useState } from 'react'
 import './Sections.css'
 
+import Chalk from '../assets/Chalk.svg'
+import Sponge from '../assets/Sponge.svg'
+
 function BoardTools() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
       <div className="board_tools_section">
         <div className="board_chalk">
-            <img src="src/assets/Chalk.svg"/>
+            <img src={Chalk}/>
         </div>
         <div className="board_sponge">
-            <img src="src/assets/Sponge.svg"/>
+            <img src={Sponge}/>
         </div>
       </div>
     </>

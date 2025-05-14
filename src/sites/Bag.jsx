@@ -15,14 +15,18 @@ function Bag() {
     <div className="bag">
       <ul>
         {problems.map((problem) => (
-          <li key={problem.id}>
-            <p><strong>ID:</strong> {problem.id}</p>
+          <li className="note_paper" key={problem.id}>
+            <div className="note_problem_info">
+                <p><strong>ID:</strong> {problem.id}</p>
+                <p><strong>Theme:</strong> {problem.theme}</p>
+                <p><strong>Difficulty:</strong> {problem.difficulty}</p>
+                <p><strong>Solution:</strong> {problem.answer_int}</p>
+            </div>
             <p><strong>Problem:</strong> {problem.problem}</p>
-            <p><strong>Answer (Int):</strong> {problem.answer_int}</p>
-            <p><strong>Theme:</strong> {problem.theme}</p>
-            <p><strong>Difficulty:</strong> {problem.difficulty}</p>
-            <p><strong>Answer Image:</strong> {problem.answer_img ? <img src={problem.answer_img} alt="Answer" /> : 'None'}</p>
-            <p><strong>Notes Image:</strong> {problem.notes_img ? <img src={problem.notes_img} alt="Notes" /> : 'None'}</p>
+            <div className="note_problem_images">
+                <p><strong>Answer Image:</strong> {problem.answer_img ? <img src={problem.answer_img} alt="Answer" /> : 'None'}</p>
+                <p><strong>Notes Image:</strong> {problem.notes_img ? <img src={problem.notes_img} alt="Notes" /> : 'None'}</p>
+            </div>
           </li>
         ))}
       </ul>

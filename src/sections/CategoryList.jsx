@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import './Sections.css';
 
-const categories = ['СОБИРАЊЕ', 'ОДЗЕМАЊЕ', 'МНОЖЕЊЕ', 'ДЕЛЕЊЕ'];
+const categories = ['СОБИРАЊЕ', 'ОДЗЕМАЊЕ', 'МНОЖЕЊЕ', 'ДЕЛЕЊЕ', 'СПОРЕДБА', 'БРОЕЊЕ']; // 'ПРОНАЈДИ Х',
 
 function CategoryList() {
     const [rotationAngles, setRotationAngles] = useState([]);
@@ -17,7 +17,7 @@ function CategoryList() {
             <ul>
                 {categories.map((category, index) => (
                     <li key={index} style={{ transform: `rotate(${rotationAngles[index] || 0}deg)` }}>
-                        <Link to="/platform"><button>{category}</button></Link>
+                        <Link to={`/platform/${category}`}><button>{category}</button></Link>
                     </li>
                 ))}
             </ul>

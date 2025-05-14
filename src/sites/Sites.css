@@ -7,38 +7,79 @@
   grid-template-columns: 0.5fr 2.1fr 0.4fr 1fr;
   grid-template-rows: 0.2fr 1.6fr 1.2fr;
   grid-auto-flow: row;
-  background-color: greenyellow;
   font-size: 30px;
+
+  background: url("../assets/Room_Perspective_2.svg") no-repeat center 50%/100%;
+
+  font-family: cursive;
 }
 
-.board {background-color: green}
+.board:hover {
+  cursor: url("../assets/Chalk.svg"), auto;
+}
 
-.notebook {background-color: white}
+.notebook:hover {
+  cursor: url("../assets/Pencil.svg"), auto;
+}
+/*.platform > * {
+  border: 1px white dashed
+}*/
 
-.info {background-color: gray}
+.board {
+  background: url("../assets/Blackboard.svg") no-repeat center 45%/90%;
+}
 
-.note_tools {background-color: wheat}
+.notebook {background: url("../assets/Notebook.svg") no-repeat 0 36%/100%}
 
-.board_tools {background-color: yellow}
+.info {background: url("../assets/Kid.svg") no-repeat center -250%/200%}
 
-.door {background-color: cadetblue}
+.note_tools {background-color: transparent}
 
-.breadcrumbs {background-color: gold}
+.board_tools {background-color: transparent}
+
+.door {background: url("../assets/Door_Perspective.svg") no-repeat center 64%/300%}
+
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 1rem;
+  justify-content: center;
+}
 
 .board { grid-area: 2 / 2 / 3 / 3; }
 .notebook { grid-area: 3 / 2 / 4 / 3; }
 .note_tools { grid-area: 3 / 3 / 4 / 4; }
-.door { grid-area: 2 / 1 / 3 / 2; }
+.door { grid-area: 2 / 1 / 4 / 2; }
 .breadcrumbs { grid-area: 1 / 1 / 2 / 5; }
 .info { grid-area: 2 / 4 / 4 / 5; }
 .board_tools { grid-area: 2 / 3 / 3 / 4; }
+
+.info {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.name_board {
+  position: absolute;
+  width: 100%;
+  bottom: -8rem;
+}
+
+.kid_name {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-25%);
+}
 
 /* HOME */
 .home {
   width: 100vw;
   height: 100vh;
-  /*background: url("../assets/school_image_background_demo.avif") no-repeat center;*/
-  background: url("../assets/school_image_background_demo.avif") no-repeat 0 80%;
+  background: url("../assets/School.svg") no-repeat 0 45%;
   background-size: cover;
   display: grid;
   grid-template-columns: 0.7fr 1.3fr 1fr;
@@ -58,11 +99,6 @@
 
 .file_options { grid-area: file_options; }
 
-/*.category_signs { background-color: saddlebrown}*/
-
-/*.school_empty { background-color: darkred}*/
-
-/*.file_options { background-color: sandybrown}*/
 
 
 /* BAG */
@@ -70,6 +106,29 @@
   width: 100vw;
   height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
+}
+
+.bag ul {
+  list-style: none;
+}
+
+.note_paper {
+  width: 40rem;
+  padding: 10%;
+  margin-top: 2rem;
+  color: black;
+  background: url("../src/assets/Notebook.svg") no-repeat 0 36%/98%;
+}
+
+.note_problem_info, .note_problem_images{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+
+/* ALL */
+img {
+  filter: drop-shadow(0.6rem 0.6rem 0.6rem rgba(0,0,0,0.5));
 }

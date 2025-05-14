@@ -13,7 +13,8 @@ createRoot(document.getElementById('root')).render(
           <Routes>
               <Route path="/import" element={<Import />} />
               <Route path="/" element={<Home />} />
-              <Route path="/platform" element={<Platform/>} />
+              {/*<Route path="/platform" element={<Platform/>} />*/}
+              <Route path="/platform/:category" element={<Platform/>} />
               <Route path="/bag" element={<Bag/>} />
           </Routes>
       </BrowserRouter>
