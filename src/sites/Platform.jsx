@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from "react-router";
+import { useRef } from 'react';
+
 //FILES
 import './Sites.css'
 //COMPONENTS
@@ -16,10 +18,62 @@ function Platform() {
     const [difficulty, setDifficulty] = useState('');
     const [drawCallback, setDrawCallback] = useState(null);
     const { category } = useParams();
+    const notebookCanvasRef = useRef(null);
 
     let correctAnswer = null;
     let apiProblem = '';
     let boardProblem = '';
+
+    useEffect(() => {
+    const canvas = notebookCanvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    canvas.width = 800;
+    canvas.height = 300;
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 3;
+
+    let drawing = false;
+
+    const startDraw = (e) => {
+        drawing = true;
+        ctx.beginPath();
+        ctx.moveTo(e.offsetX, e.offsetY);
+    };
+
+    const draw = (e) => {
+        if (!drawing) return;
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+    };
+
+    const stopDraw = () => {
+        drawing = false;
+        ctx.closePath();
+    };
+
+    canvas.addEventListener("mousedown", startDraw);
+    canvas.addEventListener("mousemove", draw);
+    canvas.addEventListener("mouseup", stopDraw);
+    canvas.addEventListener("mouseleave", stopDraw);
+
+    return () => {
+        canvas.removeEventListener("mousedown", startDraw);
+        canvas.removeEventListener("mousemove", draw);
+        canvas.removeEventListener("mouseup", stopDraw);
+        canvas.removeEventListener("mouseleave", stopDraw);
+    };
+}, []);
+
+    const clearNotebook = () => {
+        const canvas = notebookCanvasRef.current;
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    };
+
+    
+
 
     function getRandom(min, max) {
         return Math.floor(Math.random() * (max - min) + min);
@@ -269,7 +323,26 @@ function Platform() {
                 <h2 className="kid_name">Паметко</h2>
             </div>
             <div className="note_tools"><NoteTools></NoteTools></div>
-            <div className="notebook"></div>
+<div className="notebook" style={{ position: "relative", display: "inline-block", marginTop: "20px" }}>
+    <canvas
+        ref={notebookCanvasRef}
+        className="notebook_canvas"
+        style={{overflow: "hidden" }}
+    />
+    <button
+        onClick={clearNotebook}
+        className="clear_button"
+        style={{
+            position: "absolute",
+            bottom: "10px",
+            right: "-150px"
+        }}
+    >
+        Избриши
+    </button>
+</div>
+
+            {/* <button onClick={clearNotebook} className="clear_button">Избриши</button> */}
         </div>
     </>
   )
