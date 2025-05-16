@@ -14,8 +14,31 @@
 
 .equation_value { grid-area: equation_value; display: flex; justify-content: center; align-items: center;}
 
-.solution_canvas { grid-area: solution_canvas; display: flex; justify-content: center; align-items: start; width: 60%; height: 60%; border-bottom: 0.2rem dotted white; }
+.solution_canvas {
+    height: 100%;
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*border-bottom: 2px dotted white;*/
+}
 
+#answer_canvas {padding-top: 10%;}
+
+.reset_button {
+    position: absolute;
+    font-size: 1rem;
+    right: 35%;
+    background-color: limegreen;
+}
+.answer_button {
+    position: absolute;
+    font-size: 1rem;
+    bottom: 50%;
+    right: 35%;
+    background-color: limegreen;
+
+}
 
 /* TOOLS */
 .board_tools_section {

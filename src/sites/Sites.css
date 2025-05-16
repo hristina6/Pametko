@@ -55,6 +55,13 @@
 .info { grid-area: 2 / 4 / 4 / 5; }
 .board_tools { grid-area: 2 / 3 / 3 / 4; }
 
+.clear_button {
+  position: absolute;
+  font-size: 1rem;
+  right: 35%;
+  background-color: deepskyblue;
+}
+
 .info {
   display: flex;
   position: relative;

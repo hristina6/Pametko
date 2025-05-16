@@ -29,8 +29,8 @@ function Platform() {
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
-    canvas.width = 800;
-    canvas.height = 300;
+    canvas.width = 720;
+    canvas.height = 320;
     ctx.strokeStyle = "black";
     ctx.lineWidth = 3;
 
@@ -323,26 +323,10 @@ function Platform() {
                 <h2 className="kid_name">Паметко</h2>
             </div>
             <div className="note_tools"><NoteTools></NoteTools></div>
-<div className="notebook" style={{ position: "relative", display: "inline-block", marginTop: "20px" }}>
-    <canvas
-        ref={notebookCanvasRef}
-        className="notebook_canvas"
-        style={{overflow: "hidden" }}
-    />
-    <button
-        onClick={clearNotebook}
-        className="clear_button"
-        style={{
-            position: "absolute",
-            bottom: "10px",
-            right: "-150px"
-        }}
-    >
-        Избриши
-    </button>
-</div>
-
-            {/* <button onClick={clearNotebook} className="clear_button">Избриши</button> */}
+            <div className="notebook">
+                <canvas ref={notebookCanvasRef} className="notebook_canvas" style={{overflow: "hidden"}}/>
+                <button onClick={clearNotebook} className="clear_button">Избриши</button>
+            </div>
         </div>
     </>
   )
