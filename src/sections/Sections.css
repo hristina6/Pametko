@@ -150,3 +150,23 @@
   padding: 8px 16px;
   cursor: pointer;
 }
+
+/*Export Button*/
+.pdf-export-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 3px 8px;         
+  font-size: 20px; 
+  background-color: limegreen;         
+  color: white;
+  border: none;
+  border-radius: 8px;       
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2); 
+}
+
+.pdf-export-button:hover {
+  background: #45a049;      
+}

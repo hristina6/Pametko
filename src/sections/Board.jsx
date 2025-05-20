@@ -1,11 +1,16 @@
 import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react'
 import './Sections.css'
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import backgroundImage from '../assets/background_pdf.png'
+
 
 import Tesseract from "tesseract.js";
 
 const Board = forwardRef(({ problem, showCanvas, drawCallback, correctAnswer, onInfoMessageChange }, ref) => {
     const visualCanvasRef = useRef(null);
     const answerCanvasRef = useRef(null);
+    const boardRef = useRef(null);
 
     const [infoMessage, setInfoMessage] = useState('Реши ја задачата! Можеш!');
 
@@ -19,6 +24,73 @@ const Board = forwardRef(({ problem, showCanvas, drawCallback, correctAnswer, on
         }
     }));
 
+const exportToPDF = () => {
+  if (!boardRef.current) return;
+
+  const bgImg = new Image();
+  bgImg.src = backgroundImage;
+
+  bgImg.onload = () => {
+    html2canvas(boardRef.current, {
+      scale: 2,
+      logging: false,
+      useCORS: true,
+      backgroundColor: null,
+    }).then((canvas) => {
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'mm',
+      });
+
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+
+      const imgAspectRatio = bgImg.naturalWidth / bgImg.naturalHeight;
+      let bgDisplayHeight = pageHeight;
+      let bgDisplayWidth = bgDisplayHeight * imgAspectRatio;
+
+      if (bgDisplayWidth > pageWidth) {
+        bgDisplayWidth = pageWidth;
+        bgDisplayHeight = bgDisplayWidth / imgAspectRatio;
+      }
+
+      const bgOffsetX = (pageWidth - bgDisplayWidth) / 2;
+      const bgOffsetY = (pageHeight - bgDisplayHeight) / 2;
+
+      pdf.addImage(
+        bgImg,
+        'PNG',
+        bgOffsetX,
+        bgOffsetY,
+        bgDisplayWidth,
+        bgDisplayHeight
+      );
+
+      const contentScale = 0.6;
+      const contentWidth = pageWidth * contentScale;
+      const contentHeight = (canvas.height * contentWidth) / canvas.width;
+
+      let contentOffsetX = 25; 
+      let contentOffsetY = 40; 
+
+
+      pdf.addImage(
+        canvas.toDataURL('image/png'),
+        'PNG',
+        contentOffsetX, 
+        contentOffsetY, 
+        contentWidth,
+        contentHeight
+      );
+
+      pdf.save('задача.pdf');
+    });
+  };
+
+  bgImg.onerror = () => {
+    console.error('Грешка при вчитување на позадинската слика');
+  };
+};
     //Visual Canvas
     useEffect(() => {
         if (showCanvas && visualCanvasRef.current && drawCallback) {
@@ -109,7 +181,14 @@ const Board = forwardRef(({ problem, showCanvas, drawCallback, correctAnswer, on
     }
 
     return (
-        <div className="board_section">
+        <div className="board_section" ref={boardRef}>
+            <button 
+                onClick={exportToPDF}
+                className="pdf-export-button"
+        
+            >
+                Превземи ја задачата
+            </button>
             <div className="equation_value">
                 {showCanvas && <canvas ref={visualCanvasRef} id="equationBox" />}
                 <h2>{problem}</h2>
