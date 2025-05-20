@@ -1,9 +1,19 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react'
 import './Sections.css'
 
-function Board({ problem, showCanvas, drawCallback }) {
+const Board = forwardRef(({ problem, showCanvas, drawCallback }, ref) => {
     const visualCanvasRef = useRef(null);
     const answerCanvasRef = useRef(null);
+    
+    useImperativeHandle(ref, () => ({
+        clearBoard: () => {
+            const canvas = answerCanvasRef.current;
+            if (canvas) {
+                const ctx = canvas.getContext("2d");
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+    }));
 
     //Visual Canvas
     useEffect(() => {
@@ -59,12 +69,6 @@ function Board({ problem, showCanvas, drawCallback }) {
         };
     }, []);
 
-    const clearBoard = () => {
-        const canvas = answerCanvasRef.current;
-        const ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    };
-
     return (
         <div className="board_section">
             <div className="equation_value">
@@ -73,16 +77,14 @@ function Board({ problem, showCanvas, drawCallback }) {
             </div>
             <div className="solution_canvas">
                 <p id="answer_text">Решение?</p>
-
                 <div id="answer_canvas">
                     <canvas ref={answerCanvasRef} width="28" height="28"
                             style={{border:'1px dotted black', transform: 'scale(4)', filter: 'invert(100%)'}}/>
                 </div>
-                <button onClick={clearBoard} className="reset_button">Ресетирај</button>
-                <button onClick={clearBoard} className="answer_button">Провери</button>
+                <button className="answer_button">Провери</button>
             </div>
         </div>
     )
-}
+});
 
 export default Board;

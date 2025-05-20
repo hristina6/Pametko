@@ -15,10 +15,11 @@ import WoodenBoard from '../assets/Wooden_Board.svg';
 function Platform() {
     const [currentProblem, setCurrentProblem] = useState('');
     const [theme, setTheme] = useState('');
-    const [difficulty, setDifficulty] = useState('');
+    const [difficulty, setDifficulty] = useState('');    
     const [drawCallback, setDrawCallback] = useState(null);
     const { category } = useParams();
     const notebookCanvasRef = useRef(null);
+    const boardRef = useRef(null);
 
     let correctAnswer = null;
     let apiProblem = '';
@@ -63,14 +64,8 @@ function Platform() {
         canvas.removeEventListener("mousemove", draw);
         canvas.removeEventListener("mouseup", stopDraw);
         canvas.removeEventListener("mouseleave", stopDraw);
-    };
+        };
 }, []);
-
-    const clearNotebook = () => {
-        const canvas = notebookCanvasRef.current;
-        const ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    };
 
     
 
@@ -312,20 +307,18 @@ function Platform() {
             <div className="breadcrumbs">
                 <p>Задача: {theme}</p>
                 <p>Степен: {difficulty}</p>
-            </div>
+            </div>            
             <div className="door"><a href="/"><img className="back_button" src={BackButton} alt="back_button"/></a></div>
-            <div className="board"><Board problem={currentProblem}
+            <div className="board"><Board ref={boardRef} 
+                                          problem={currentProblem}
                                           showCanvas={theme === "БРОЕЊЕ"}
-                                          drawCallback={drawCallback}></Board></div>
-            <div className="board_tools"><BoardTools></BoardTools></div>
-            <div className="info">
+                                          drawCallback={drawCallback}></Board></div>            <div className="board_tools"><BoardTools boardRef={boardRef}></BoardTools></div>            <div className="info">
                 <img className="name_board" alt="name_board" src={WoodenBoard}/>
                 <h2 className="kid_name">Паметко</h2>
             </div>
-            <div className="note_tools"><NoteTools></NoteTools></div>
+            <div className="note_tools"><NoteTools notebookRef={notebookCanvasRef}></NoteTools></div>
             <div className="notebook">
                 <canvas ref={notebookCanvasRef} className="notebook_canvas" style={{overflow: "hidden"}}/>
-                <button onClick={clearNotebook} className="clear_button">Избриши</button>
             </div>
         </div>
     </>

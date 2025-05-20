@@ -4,7 +4,12 @@ import './Sections.css'
 import Chalk from '../assets/Chalk.svg'
 import Sponge from '../assets/Sponge.svg'
 
-function BoardTools() {
+function BoardTools({ boardRef }) {
+  const handleClearBoard = () => {
+    if (boardRef && boardRef.current) {
+      boardRef.current.clearBoard();
+    }
+  };
 
   return (
     <>
@@ -12,10 +17,9 @@ function BoardTools() {
         <div className="board_chalk">
             <img src={Chalk}/>
         </div>
-        <div className="board_sponge">
+        <div className="board_sponge" onClick={handleClearBoard} style={{ cursor: 'pointer' }}>
             <img src={Sponge}/>
-        </div>
-      </div>
+        </div>      </div>
     </>
   )
 }
