@@ -1,10 +1,14 @@
-import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react'
+import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react'
 import './Sections.css'
 
-const Board = forwardRef(({ problem, showCanvas, drawCallback }, ref) => {
+import Tesseract from "tesseract.js";
+
+const Board = forwardRef(({ problem, showCanvas, drawCallback, correctAnswer, onInfoMessageChange }, ref) => {
     const visualCanvasRef = useRef(null);
     const answerCanvasRef = useRef(null);
-    
+
+    const [infoMessage, setInfoMessage] = useState('Реши ја задачата! Можеш!');
+
     useImperativeHandle(ref, () => ({
         clearBoard: () => {
             const canvas = answerCanvasRef.current;
@@ -69,6 +73,41 @@ const Board = forwardRef(({ problem, showCanvas, drawCallback }, ref) => {
         };
     }, []);
 
+    const setInfo = (message) => {
+        setInfoMessage(message);
+        if (onInfoMessageChange) {
+            onInfoMessageChange(message);
+        }
+    };
+
+    function recognizeText() {
+        const canvas = answerCanvasRef.current;
+        if (!canvas) return;
+
+        const dataUrl = canvas.toDataURL("image/png");
+        console.log(dataUrl);
+        Tesseract.recognize(
+            dataUrl,
+            "eng",
+            {
+                logger: (m) => console.log(m),
+            }
+        ).then(({data: {text}}) => {
+            const userAnswer = parseFloat(text.trim());
+            console.log("Recognized Answer:", userAnswer); // Debugging log
+            console.log("Correct:", correctAnswer);
+            if (!isNaN(userAnswer)) {
+                if (userAnswer === correctAnswer) {
+                    setInfo("Браво! Точен одговор!");
+                } else {
+                    setInfo("Неточен одговор. Обиди се повторно.");
+                }
+            } else {
+                setInfo("Не го препознавам бројот.");
+            }
+        });
+    }
+
     return (
         <div className="board_section">
             <div className="equation_value">
@@ -81,7 +120,7 @@ const Board = forwardRef(({ problem, showCanvas, drawCallback }, ref) => {
                     <canvas ref={answerCanvasRef} width="28" height="28"
                             style={{border:'1px dotted black', transform: 'scale(4)', filter: 'invert(100%)'}}/>
                 </div>
-                <button className="answer_button">Провери</button>
+                <button onClick={recognizeText} className="answer_button">Провери</button>
             </div>
         </div>
     )

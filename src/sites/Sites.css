@@ -134,6 +134,11 @@
   gap: 1rem;
 }
 
+.pametko_message {
+  color: #1a1a1a;
+  padding: 20% 15%;
+  background: url("../src/assets/Chat_Cloud.svg") no-repeat 0 -20%/100%;
+}
 
 /* ALL */
 img {

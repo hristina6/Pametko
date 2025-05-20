@@ -15,59 +15,69 @@ import WoodenBoard from '../assets/Wooden_Board.svg';
 function Platform() {
     const [currentProblem, setCurrentProblem] = useState('');
     const [theme, setTheme] = useState('');
-    const [difficulty, setDifficulty] = useState('');    
+    const [difficulty, setDifficulty] = useState('');
     const [drawCallback, setDrawCallback] = useState(null);
+
     const { category } = useParams();
+
     const notebookCanvasRef = useRef(null);
     const boardRef = useRef(null);
+    const hasInitialized = useRef(false);
 
-    let correctAnswer = null;
+
+    const [correctAnswer, setCorrectAnswer] = useState(null);
+    const [infoMessage, setInfoMessage] = useState('Реши ја задачата!');
+
+    const handleInfoMessageChange = (message) => {
+        setInfoMessage(message);
+    };
+
     let apiProblem = '';
     let boardProblem = '';
 
     useEffect(() => {
-    const canvas = notebookCanvasRef.current;
-    if (!canvas) return;
+        const canvas = notebookCanvasRef.current;
+        if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
-    canvas.width = 720;
-    canvas.height = 320;
-    ctx.strokeStyle = "black";
-    ctx.lineWidth = 3;
+        const ctx = canvas.getContext("2d");
+        canvas.width = 720;
+        canvas.height = 320;
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 3;
 
-    let drawing = false;
+        let drawing = false;
 
-    const startDraw = (e) => {
-        drawing = true;
-        ctx.beginPath();
-        ctx.moveTo(e.offsetX, e.offsetY);
-    };
+        const startDraw = (e) => {
+            drawing = true;
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX, e.offsetY);
+        };
 
-    const draw = (e) => {
-        if (!drawing) return;
-        ctx.lineTo(e.offsetX, e.offsetY);
-        ctx.stroke();
-    };
+        const draw = (e) => {
+            if (!drawing) return;
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+        };
 
-    const stopDraw = () => {
-        drawing = false;
-        ctx.closePath();
-    };
+        const stopDraw = () => {
+            drawing = false;
+            ctx.closePath();
+        };
 
-    canvas.addEventListener("mousedown", startDraw);
-    canvas.addEventListener("mousemove", draw);
-    canvas.addEventListener("mouseup", stopDraw);
-    canvas.addEventListener("mouseleave", stopDraw);
+        canvas.addEventListener("mousedown", startDraw);
+        canvas.addEventListener("mousemove", draw);
+        canvas.addEventListener("mouseup", stopDraw);
+        canvas.addEventListener("mouseleave", stopDraw);
 
-    return () => {
-        canvas.removeEventListener("mousedown", startDraw);
-        canvas.removeEventListener("mousemove", draw);
-        canvas.removeEventListener("mouseup", stopDraw);
-        canvas.removeEventListener("mouseleave", stopDraw);
+        return () => {
+            canvas.removeEventListener("mousedown", startDraw);
+            canvas.removeEventListener("mousemove", draw);
+            canvas.removeEventListener("mouseup", stopDraw);
+            canvas.removeEventListener("mouseleave", stopDraw);
         };
 }, []);
 
-    
+
 
 
     function getRandom(min, max) {
@@ -158,8 +168,9 @@ function Platform() {
     }
 
     useEffect(() => {
-        if (category) {
-            generateProblem(category, getRandom(1,3));
+        if (category && !hasInitialized.current) {
+            hasInitialized.current = true;
+            generateProblem(category, getRandom(1, 3));
         }
     }, [category]);
 
@@ -167,7 +178,8 @@ function Platform() {
         fetch(`https://api.mathjs.org/v4/?expr=${encodeURIComponent(problem)}`)
             .then(response => response.text())
             .then(answer => {
-                correctAnswer = parseFloat(answer); // Store as a number
+                console.log(`https://api.mathjs.org/v4/?expr=${encodeURIComponent(problem)}`)
+                setCorrectAnswer(parseFloat(answer)); // Store as a number
                 console.log("Correct Answer from API:", correctAnswer); // Debugging log
             })
             .catch(error => console.error('Error fetching solution:', error));
@@ -293,9 +305,10 @@ function Platform() {
         }
 
         setCurrentProblem(boardProblem);
+        console.log("Current:", currentProblem);
 
         // Fetch the solution from Math.js API
-        fetchSolution(currentProblem);
+        fetchSolution(apiProblem);
         console.log(boardProblem);
         console.log(t);
         console.log(d);
@@ -307,12 +320,16 @@ function Platform() {
             <div className="breadcrumbs">
                 <p>Задача: {theme}</p>
                 <p>Степен: {difficulty}</p>
-            </div>            
+            </div>
             <div className="door"><a href="/"><img className="back_button" src={BackButton} alt="back_button"/></a></div>
-            <div className="board"><Board ref={boardRef} 
-                                          problem={currentProblem}
-                                          showCanvas={theme === "БРОЕЊЕ"}
-                                          drawCallback={drawCallback}></Board></div>            <div className="board_tools"><BoardTools boardRef={boardRef}></BoardTools></div>            <div className="info">
+            <div className="board">
+                <Board ref={boardRef} problem={currentProblem} showCanvas={theme === "БРОЕЊЕ"}
+                       drawCallback={drawCallback} correctAnswer={correctAnswer}
+                       onInfoMessageChange={handleInfoMessageChange}></Board>
+            </div>
+            <div className="board_tools"><BoardTools boardRef={boardRef}></BoardTools></div>
+            <div className="info">
+                <p className="pametko_message">{infoMessage}</p>
                 <img className="name_board" alt="name_board" src={WoodenBoard}/>
                 <h2 className="kid_name">Паметко</h2>
             </div>
@@ -326,3 +343,4 @@ function Platform() {
 }
 
 export default Platform;
+
