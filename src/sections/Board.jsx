@@ -7,7 +7,7 @@ import backgroundImage from '../assets/background_pdf.png'
 
 import Tesseract from "tesseract.js";
 
-const Board = forwardRef(({ problem, showCanvas, drawCallback, correctAnswer, onInfoMessageChange }, ref) => {
+const Board = forwardRef(({ problem, showCanvas, drawCallback, correctAnswer, onInfoMessageChange, theme = '', difficulty = '', onCorrectAnswer }, ref) => {
     const visualCanvasRef = useRef(null);
     const answerCanvasRef = useRef(null);
     const boardRef = useRef(null);
@@ -152,6 +152,38 @@ const exportToPDF = () => {
         }
     };
 
+    async function saveProblemToDatabase(dataUrl) {
+        try {
+            console.log('Sending data URL length:', dataUrl.length);
+            
+            const response = await fetch('http://localhost:5000/api/save-answer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    problem: problem,
+                    answer_int: correctAnswer,
+                    theme: theme || '',
+                    difficulty: difficulty || '',
+                    answer_img: dataUrl
+                })
+            });
+            
+            const result = await response.json();
+            if (result.success) {
+                console.log('Problem saved successfully:', result);
+                if (result.cloudinary) {
+                    console.log('Image was uploaded to Cloudinary:', result.imageUrl);
+                }
+            } else {
+                console.error('Failed to save problem:', result.error);
+            }
+        } catch (error) {
+            console.error('Error saving problem:', error);
+        }
+    }
+
     function recognizeText() {
         const canvas = answerCanvasRef.current;
         if (!canvas) return;
@@ -167,10 +199,17 @@ const exportToPDF = () => {
         ).then(({data: {text}}) => {
             const userAnswer = parseFloat(text.trim());
             console.log("Recognized Answer:", userAnswer); // Debugging log
-            console.log("Correct:", correctAnswer);
-            if (!isNaN(userAnswer)) {
+            console.log("Correct:", correctAnswer);              if (!isNaN(userAnswer)) {
                 if (userAnswer === correctAnswer) {
                     setInfo("Браво! Точен одговор!");
+                    
+                    // Save the problem with the answer image to database and Cloudinary
+                    saveProblemToDatabase(dataUrl);
+                    
+                    // Notify parent component (Platform) about correct answer with the image data
+                    if (onCorrectAnswer) {
+                        onCorrectAnswer(dataUrl);
+                    }
                 } else {
                     setInfo("Неточен одговор. Обиди се повторно.");
                 }

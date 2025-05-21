@@ -27,9 +27,62 @@ function Platform() {
 
     const [correctAnswer, setCorrectAnswer] = useState(null);
     const [infoMessage, setInfoMessage] = useState('Реши ја задачата!');
+    const [lastCorrectAnswerImage, setLastCorrectAnswerImage] = useState(null);
+
+    // Function to save notes image to database
+    async function saveNotesImageToDatabase(answerDataUrl) {
+        // Get the notebook canvas image
+        const notebookCanvas = notebookCanvasRef.current;
+        if (!notebookCanvas) return;
+        
+        const notesDataUrl = notebookCanvas.toDataURL("image/png");
+        console.log('Notes image data URL length:', notesDataUrl.length);
+        
+        try {
+            const response = await fetch('http://localhost:5000/api/save-answer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    problem: currentProblem,
+                    answer_int: correctAnswer,
+                    theme: theme || '',
+                    difficulty: difficulty || '',
+                    answer_img: answerDataUrl,
+                    notes_img: notesDataUrl
+                })
+            });
+            
+            const result = await response.json();
+            if (result.success) {
+                console.log('Problem with notes saved successfully:', result);
+                if (result.notesCloudinary) {
+                    console.log('Notes image was uploaded to Cloudinary:', result.notesImageUrl);
+                }
+            } else {
+                console.error('Failed to save problem with notes:', result.error);
+            }
+        } catch (error) {
+            console.error('Error saving problem with notes:', error);
+        }
+    }
+
+    // Handle when the answer is correct - called by Board component
+    const handleCorrectAnswer = (answerImageUrl) => {
+        console.log('Received correct answer notification with image:', answerImageUrl);
+        setLastCorrectAnswerImage(answerImageUrl);
+        saveNotesImageToDatabase(answerImageUrl);
+    };
 
     const handleInfoMessageChange = (message) => {
         setInfoMessage(message);
+        // If the message indicates a correct answer, capture the notebook canvas
+        if (message.includes('Браво') || message.includes('Точен')) {
+            if (lastCorrectAnswerImage) {
+                saveNotesImageToDatabase(lastCorrectAnswerImage);
+            }
+        }
     };
 
     let apiProblem = '';
@@ -321,11 +374,12 @@ function Platform() {
                 <p>Задача: {theme}</p>
                 <p>Степен: {difficulty}</p>
             </div>
-            <div className="door"><a href="/"><img className="back_button" src={BackButton} alt="back_button"/></a></div>
-            <div className="board">
+            <div className="door"><a href="/"><img className="back_button" src={BackButton} alt="back_button"/></a></div>            <div className="board">
                 <Board ref={boardRef} problem={currentProblem} showCanvas={theme === "БРОЕЊЕ"}
                        drawCallback={drawCallback} correctAnswer={correctAnswer}
-                       onInfoMessageChange={handleInfoMessageChange}></Board>
+                       onInfoMessageChange={handleInfoMessageChange}
+                       onCorrectAnswer={handleCorrectAnswer}
+                       theme={theme} difficulty={difficulty}></Board>
             </div>
             <div className="board_tools"><BoardTools boardRef={boardRef}></BoardTools></div>
             <div className="info">
