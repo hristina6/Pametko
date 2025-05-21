@@ -96,7 +96,7 @@ function Import() {
         
         {file && (
           <div className="file-info">
-            <p>✅ Подготвени {file.length} записи</p>
+            <p>✅ Подготвен запис</p>
             <button onClick={saveToDatabase} className="save-button">
               Зачувај во Azure база
             </button>
