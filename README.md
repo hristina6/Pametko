@@ -4,7 +4,7 @@ Pametko is a web application that uses OCR technology for solving math problems.
 - **OCR Problem Solving:** Answer recognition using Tesseract.js
 - **Interactive Canvas:** Digital drawing board for writing solutions with drawing tools.
 - **Import/Export:** Importing mathematical problems via Excel file and exporting the written canvas solution via pdf
-## Technologies:
+## Technologies
 - Backend: Node.js, Express.js
 - Fronted: React.js, JavaScript, CSS
 - Database: PostgreSQL, Azure host
